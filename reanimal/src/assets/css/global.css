@@ -1,0 +1,338 @@
+:root {
+  /* 主背景 - 深蓝灰色调，参考封面 */
+  --bg: #0f1419;
+  --bg-soft: #1a2332;
+  --card: rgba(26, 35, 50, 0.92);
+  /* 强调色 - 血红色，营造恐怖血腥氛围 */
+  --accent: #D41F26; /* 深血红色 */
+  --accent-soft: #a00000; /* 稍亮的血红色 */
+  --accent-dark: #5a0000; /* 极深的血红色 */
+  --accent-glow: #ff0000; /* 发光用的鲜红色 */
+  /* 特殊发光色 - 黄色，参考怪物眼睛 */
+  --glow-yellow: #fbbf24;
+  --glow-yellow-soft: #fcd34d;
+  /* 冷色调 - 蓝灰色 */
+  --cool-blue: #3b82f6;
+  --cool-gray: #4b5563;
+  --cool-dark: #1e293b;
+  /* 文字颜色 */
+  --text: #e5e7eb;
+  --text-soft: rgba(229, 231, 235, 0.65);
+  /* 渐变搭配色 - 用于标题渐变 */
+  --gradient-light: #ffffff; /* 白色，与血红色形成强烈对比 */
+  --gradient-light-soft: #f3f4f6; /* 浅灰色，柔和版本 */
+  /* 网格颜色 - 蓝灰色调 */
+  --grid-color: rgba(59, 130, 246, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 标题字体 - 更粗、更有冲击力，适合恐怖游戏 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 外发光效果 - 血红色恐怖氛围，柔和版 */
+  text-shadow: 
+    0 0 6px rgba(139, 0, 0, 0.4),
+    0 0 12px rgba(139, 0, 0, 0.3),
+    0 0 18px rgba(160, 0, 0, 0.2);
+}
+
+/* 代码和等宽字体 - 用于特殊效果 */
+code, pre, .monospace {
+  letter-spacing: 0.05em;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/images/bg.webp') center/cover no-repeat fixed;
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(180deg, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.65));
+  background-size:
+    55px 55px,
+    55px 55px,
+    auto;
+  opacity: 1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+p, ul {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Page Header - 通用内页头部样式 */
+.page-header {
+  padding: 80px 0 50px;
+  margin-bottom: 40px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(25, 5, 5, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.page-header-content {
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.page-header-badge:hover {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: rgba(220, 38, 38, 0.5);
+  transform: translateY(-2px);
+}
+
+.page-header-badge .badge-icon {
+  font-size: 0.9rem;
+  filter: drop-shadow(0 0 4px rgba(220, 38, 38, 0.5));
+}
+
+.page-header-badge .badge-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+  text-align: center;
+  background: linear-gradient(135deg, var(--gradient-light) 0%, var(--gradient-light-soft) 30%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px rgba(139, 0, 0, 0.5)) 
+          drop-shadow(0 0 16px rgba(139, 0, 0, 0.3))
+          drop-shadow(0 0 24px rgba(160, 0, 0, 0.2));
+}
+
+.page-title-decoration {
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 0 auto 20px;
+  border-radius: 2px;
+  position: relative;
+}
+
+.page-title-decoration::before,
+.page-title-decoration::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.6);
+}
+
+.page-title-decoration::before {
+  left: -20px;
+}
+
+.page-title-decoration::after {
+  right: -20px;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-soft);
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-header-features {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.page-header-features .feature-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(25, 5, 5, 0.6);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.page-header-features .feature-badge:hover {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.4);
+  transform: translateY(-2px);
+}
+
+.page-header-features .feature-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+  color: #1a0a00;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.page-header-features .feature-badge span:not(.feature-icon) {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.page-section{
+  margin-bottom: 40px;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 60px 0 40px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+    padding: 0 20px;
+    margin-bottom: 16px;
+  }
+
+  .page-header-features {
+    gap: 10px;
+    padding: 0 20px;
+    margin-top: 16px;
+  }
+
+  .page-header-features .feature-badge {
+    padding: 5px 12px;
+  }
+
+  .page-header-features .feature-badge span:not(.feature-icon) {
+    font-size: 0.8rem;
+  }
+
+  .page-header-badge {
+    padding: 4px 10px;
+    margin-bottom: 12px;
+    gap: 5px;
+  }
+
+  .page-header-badge .badge-text {
+    font-size: 0.7rem;
+  }
+
+  .page-header-badge .badge-icon {
+    font-size: 0.8rem;
+  }
+
+  .page-title-decoration {
+    margin-bottom: 16px;
+  }
+}
+
+/* Inline Link Styles */
+.inline-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.inline-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  text-decoration: none;
+}
+
